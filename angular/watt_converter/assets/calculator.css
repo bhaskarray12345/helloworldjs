@@ -84,6 +84,7 @@
 
 #myCalculator form br { display: none; }
 
+/*Q:Not sure what > means */
 #myCalculator form > div {
 	color: #fff;
 	width: 33%;
