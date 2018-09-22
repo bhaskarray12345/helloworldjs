@@ -1,0 +1,22 @@
+<!--Sep 21, 2018  Ability to create 2 controllers      -->
+<!--              Although the model name is identical -->
+<!--              each controller was able to identify -->
+<!--              its model.                           -->
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <title>Two different controllers</title>
+  </head>
+  <body>
+    <div ng-controller="controllerA">
+      <h2>ControllerA Message:</h2>
+      {{message}}
+    </div><hr>
+    <div ng-controller="controllerB">
+      <h2>ControllerB Message:</h2>
+      {{message}}
+    </div>
+    <script src="https://code.angularjs.org/1.3.0/angular.min.js"></script>
+    <script src="inject_custom.js"></script>
+  </body>
+</html>
