@@ -1,0 +1,45 @@
+<!--Demonstration of button handler on anchored lines. -->
+<!doctype html>
+<html ng-app="myApp">
+  <head>
+    <title>AngularJS Expressions</title>
+    <style>
+      a{
+          color: blue; 
+          text-decoration: underline; 
+          cursor: pointer
+       }
+    </style>
+  </head>
+  <body>
+    <div ng-controller="myController">
+      Directly accessing variables in the scope:<br>
+      <!--Default values are coming from the module.-->
+      {{speed}} {{vehicle}}<hr>
+      
+      Adding variables in the scope:<br>
+      {{speed + ' ' + vehicle}}<hr>
+      
+      Calling function in the scope:<br>
+      {{lower(speed)}} {{upper('Jeep')}}<hr>
+      
+      <a ng-click="setValues('Fast', newVehicle)">
+        <!--Note that newVehicle will be Plane all the time.-->
+        Click to change to Fast {{newVehicle}}</a><hr> 
+        
+      <a ng-click="setValues(newSpeed, 'Rocket')">
+        <!--Note that newSpeed will be SuperSonic all the time.-->
+        Click to change to {{newSpeed}} Rocket</a><hr>
+        
+     <!--Note that vehicle is changed to Car without calling Controller.-->
+      <a ng-click="vehicle='Car'">
+        Click to change the vehicle to a Car</a><hr>
+      
+      <!--The following changes the value of vehicle within html -->
+      <!--without going to controller.                           --> 
+      <a ng-click="vehicle='Enhanced ' + vehicle">
+        Click to Enhance Vehicle</a><hr>
+    <script src="https://code.angularjs.org/1.3.0/angular.min.js"></script>
+    <script src="expressions_scope.js"></script>
+  </body>
+</html>

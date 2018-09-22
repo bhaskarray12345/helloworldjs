@@ -1,0 +1,18 @@
+Demonstrates how {{}} outputs.
++ acts as overloading operator.
+
+OUTPUT:
+
+Expressions
+Number:
+5
+String:
+My String
+Adding two strings together:
+String1 String2
+Adding two numbers together:
+10
+Adding strings and numbers together:
+5+5=10
+Comparing two numbers with each other:
+true
