@@ -1,0 +1,25 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+  <title>AngularJS Custom Directive</title>
+  <style>
+    img { width: 200px; }
+  </style>
+</head>
+<body>
+  <h2>Custom Directive Zoom and Fade</h2>
+  <!-- the following image has customize zoomit function -->
+  <img src="../images/flower.jpg" zoomit></img>
+  
+  <!-- the following image has customize fadeit function -->
+  <img src="../images/flower.jpg" fadeit></img>
+  
+  <!-- the following image has customize zoomit and fadeit function -->
+  <img src="../images/flower.jpg" zoomit fadeit></img>
+  
+  <!--Q:jquery is needed for mouse events?-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+  <script src="https://code.angularjs.org/1.3.0/angular.min.js"></script>
+  <script src="directive_custom_zoom.js?laterVersion"></script>
+</body>
+</html>
