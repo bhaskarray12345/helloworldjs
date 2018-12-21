@@ -14,18 +14,27 @@
       <input type="text" ng-model="filterString">
       <input type="button" ng-click="setFilter()" value="Filter">
       <table>
+      <!--Allows sort by make, model or capacity. -->
+      <!--The sort is done reverse of what is currently in place. -->
+      <!--If current sort is descending, the click will make it into descending. -->
       <tr>
         <th ng-click="setSort('make')">Make</th>
         <th ng-click="setSort('model')">Model</th>
         <th ng-click="setSort('capacity')">Capacity</th>
       </tr>
+      
+      <!--This is like a SQL statement:       -->
+      <!-- select plane from filteredPlanes order by Column asc or desc -->
+      
       <tr ng-repeat=
           "plane in filteredPlanes | orderBy:column:reverse">
         <td>{{plane.make}}</td>
         <td>{{plane.model}}</td>
         <td>{{plane.capacity}}</td>
       </tr>
+      
       </table>
+      
     <script src="https://code.angularjs.org/1.3.0/angular.min.js"></script>
     <script src="filter_sort.js"></script>
   </body>

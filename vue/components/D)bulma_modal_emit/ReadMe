@@ -1,0 +1,14 @@
+emit() creates custom event for a component to broadcast a customized event
+to parents.
+
+[   parent   ]   <--------|
+                          |
+                          |
+                          |
+                          |
+                          |
+[  child component ]  ====|
+
+Child emits an event to parent.
+Parent captures the event can invoke a function.
+Function changes visibility and applies to the component from parent scope.

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vue.JS Tutorial</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+
+  <body>
+    
+    <div id="app">
+     
+       <!--<input type="text" v-model="coupon"> -->
+       
+       <!--v-model is really the following line                  -->
+       <!--bind the text value to variable called 'coupon'.      -->
+       <!--when there is input event, assign values to 'coupon'. -->
+       <!--<input type="text" :value="coupon" v-on:input="coupon=$event.target.value"></input>-->
+       
+       <coupon v-model="coupon"></coupon>
+      
+    </div>
+
+  <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+
+  <script>
+  
+    /*global Vue*/
+    Vue.component('coupon', {
+     
+      //props: ['code'],
+      props: ['value'],
+      
+      template:  
+                `
+                  <input type="text" :value="value" v-on:input="validate_coupon($event.target.value)"></input>
+                `,
+     
+      methods: {
+          validate_coupon(code) {
+            
+            //console log does not work.
+            //console.log(code);
+            
+            
+            if(code === 'ALLFREE'){
+              
+              alert("sorry, cannot accept this.");
+              this.$emit('input', '');
+              return;
+              
+            }
+            
+            //code = code.toLowerCase();
+            //this.$emit('input', this.$el.value);
+            this.$emit('input', code);
+          }
+      } 
+    });
+   
+    //Instantiation takes place after Vue.component definition. 
+    new Vue({
+      
+      el: '#app',
+      
+      data: {
+        
+        coupon: "ALLFREE"
+        
+      }
+      
+      
+    });
+    
+  </script>
+  </body>
+</html>

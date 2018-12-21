@@ -1,6 +1,8 @@
+<!--This is where the href of the photos are displayed. -->
 <div>
   <span ng-repeat="photo in photos" 
         ng-class="{active:photo.selected}">
+    <!--Event handler of this link is set here. -->
     <a href="" ng-click="select(photo)">{{photo.title}}</a>
   </span>
   <div ng-transclude></div>

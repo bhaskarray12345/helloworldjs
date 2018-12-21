@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vue.JS Tutorial</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css">
+    
+  </head>
+
+  <body>
+    
+    <!--<tab name="About us" :selected="true">-->
+    <!--<tab name="About our vision >-->
+    <div id="app" class="container">
+    
+      <tabs>
+        <tab name="About us">
+            <h1>About us tab contents</h1>
+        </tab>
+        
+        <tab name="About Culture">
+            <h1>About cuture contents</h1>
+        </tab>
+        
+        <tab name="About our vision" :selected="true">
+            <h1>About our vision contents</h1>
+        </tab>
+      
+        <tab name="Others">
+            <h1>Others contents</h1>
+        </tab>
+        
+      </tabs>
+      
+      </t
+    </div>
+
+  <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+
+  <script>
+    
+    Vue.component('tabs', {
+      //Weird: no function declaration
+      //Weird: One liner which is a return. 
+      template:
+          //From https://bulma.io/documentation/components/tabs/
+          `<div>
+          
+            <div class="tabs">
+            
+              <ul>
+              
+                  <li v-for="tab in tabs" :class="{'is-active': tab.isActive }">
+                
+                      <!--<a :href="tab.href"  @click="selectTab(tab)"> -->
+                      <a :href="tab.href"  @click="selectTabWithHref(tab.href)"> 
+                          {{ tab.name }} 
+                      </a>
+                      
+                  </li>
+                
+              </ul>
+              
+            </div>
+            
+            <!--Gets contents between <tab> tag. -->
+            <div class="tabs-detail">
+            
+               <slot></slot> 
+              
+            </div>
+            
+           </div>
+           `,
+      
+      methods: {
+        
+        selectTab(selectedTab){
+          
+          this.tabs.forEach( tab =>  {
+            
+            tab.isActive = (tab === selectedTab );
+            
+          });
+        },
+        
+        selectTabWithHref(selectedTabHref){
+          
+          this.tabs.forEach( tab =>  {
+            
+            tab.isActive = ( selectedTabHref === tab.href );
+            
+          });
+         
+        }
+      },
+     
+      
+      created()  {
+          this.tabs = this.$children;
+      },
+      
+      //data() is a function that returns objects.
+      data(){
+        return{ tabs : [] };
+      }, 
+      
+       mounted(){
+         
+          console.log(this.$children);
+         
+       } 
+    });
+    
+    Vue.component('tab', {
+ 
+     //props is an arry of objects.
+     props: {
+       //Setting requirements of each object
+        name: { required : true },
+        
+        //Default value is false, otherwise what is defined from parents.
+        selected: { default : false }
+    },
+    
+    computed: {
+        href(){
+          //return 'foobar';
+          //"About us" will be converted to "about-us"
+          return '#' + this.name.toLowerCase().replace(/ /g, '-');
+      }
+    },
+    
+    data(){
+     
+        return { isActive: false };
+        
+    },
+     
+    mounted(){
+  
+       let windowLocationHash = window.location.hash;
+      
+       
+       if( windowLocationHash == '' ){
+         this.isActive = this.selected; 
+       }else{
+         this.isActive = (this.href == windowLocationHash);
+       }
+       
+    },
+    
+    template:
+      `
+        <div v-show="isActive"><slot></slot></div> 
+      `
+    });
+    
+    
+    //Instantiation takes place after Vue.component definition. 
+    new Vue({
+      el: '#app',
+      data: {
+        visible: false
+      }
+    });
+    
+  </script>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vue.JS Tutorial</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css">
+    
+  </head>
+
+  <body>
+    
+    <div id="app" class="container">
+    
+      <tabs>
+        <tab name="About us" :selected="true">
+            <h1>About us tab contents</h1>
+        </tab>
+        
+        <tab name="About Culture">
+            <h1>About cuture contents</h1>
+        </tab>
+        
+        <tab name="About our vision">
+            <h1>About our vision contents</h1>
+        </tab>
+      
+        <tab name="Others">
+            <h1>Others contents</h1>
+        </tab>
+        
+      </tabs>
+      
+      </t
+    </div>
+
+  <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+
+  <script>
+    
+    Vue.component('tabs', {
+      //Weird: no function declaration
+      //Weird: One liner which is a return. 
+      template:
+          //From https://bulma.io/documentation/components/tabs/
+          `<div>
+          
+            <div class="tabs">
+            
+              <ul>
+              
+                <!--note that in order to make a tab active, the hard code line would be
+                     class="is-active"
+                    The following code sets the tab active dynamically.
+                    
+                    What is confusing is that, the above hard coded line takes in a string.
+                    However, the dynamic code takes in an object.
+                 -->
+                 <li v-for="tab in tabs" :class="{'is-active': tab.selected }">
+                
+                  <!--This gives space between tabs -->
+                  <!--Create a event handler when a tab is clicked. -->
+                  <a href="#" 
+                     @click="selectTab(tab)"    
+                  > 
+                      {{tab.name}} 
+                  </a>
+                  
+                </li>
+                
+              </ul>
+              
+            </div>
+            
+            <!--Gets contents between <tab> tag. -->
+            <div class="tabs-detail">
+            
+               <slot></slot> 
+              
+            </div>
+            
+           </div>
+           `,
+      
+      methods: {
+        
+        selectTab(selectedTab){
+          
+          this.tabs.forEach( tab =>  {
+            
+            //This will cause Vue.js warning:
+            
+            //[Vue warn]: Avoid mutating a prop directly since the value will be overwritten whenever the parent 
+            //component re-renders. Instead, use a data or computed property based on the prop's value. 
+            //Prop being mutated: "selected" 
+            //
+            //Trying to mutate a value gives a warning?  Why?
+            tab.selected = (tab.name == selectedTab.name );
+            
+          });
+         
+        }
+      },
+      
+      created()  {
+          this.tabs = this.$children;
+      },
+      
+      //data() is a function that returns objects.
+      data(){
+        return{ tabs : [] };
+      } 
+      
+    });
+    
+    Vue.component('tab', {
+ 
+     //props is an arry of objects.
+     props: {
+       //Setting requirements of each object
+        name: { required : true },
+        
+        selected: { default : false }
+    },
+     
+     template: `
+     
+      <div><slot></slot></div> 
+      `
+    });
+    
+    
+    //Instantiation takes place after Vue.component definition. 
+    new Vue({
+      el: '#app',
+      data: {
+        visible: false
+      }
+    });
+    
+  </script>
+  </body>
+</html>

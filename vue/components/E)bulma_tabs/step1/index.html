@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vue.JS Tutorial</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.2.3/css/bulma.css">
+    
+  </head>
+
+  <body>
+    
+    <div id="app" class="container">
+    
+      <tabs>
+        <tab name="About us" :selected="true">
+            <h1>About us tab </h1>
+        </tab>
+        <tab name="About Culture">
+            <h1>About cuture </h1>
+             
+        </tab>
+        <tab name="About our vision">
+            <h1>About our vision </h1>
+             
+        </tab>
+      
+      </tabs>
+      
+      </t
+    </div>
+
+  <script src="https://unpkg.com/vue@2.0.3/dist/vue.js"></script>
+
+  <script>
+    
+    Vue.component('tabs', {
+      //Weird: no function declaration
+      //Weird: One liner which is a return. 
+      template:
+          //From https://bulma.io/documentation/components/tabs/
+          `<div>
+          
+            <div class="tabs">
+            
+              <ul>
+                <li class="is-active"><a>Pictures</a></li>
+                <li><a>Music</a></li>
+                <li><a>Videos</a></li>
+                <li><a>Documents</a></li>
+              </ul>
+              
+            </div>
+            
+            <!--Gets contents between <tab> tag. -->
+            <div class="tabs-detail">
+            
+               <slot></slot> 
+              
+            </div>
+            
+           </div>
+           `,
+      
+      mounted()  {
+          //In console, click {VueComponent] and then click el.
+          //Should see innerHTML.
+          
+          //Another approach is use Vue dev tool.
+          //CLick Vue dev tool.
+          //Click Root
+          //Click tab
+          //On the right, it says $vm0.
+          //In Console, type $vm0.$children
+          //Get Undefined
+          //Define props object inside 'tab' component.
+          //From Vue console, type $vm0.$children.forEach(tab=>console.log(tab.name))
+          console.log(this.$children);
+      },
+      
+      methods : {
+        closeModal(){
+          this.showModal = false;
+        }
+      }
+      
+    });
+    
+    Vue.component('tab', {
+ 
+     props: {
+        name: { required : true }
+    },
+     
+     template: `
+     
+      <div><slot></slot></div> 
+      `
+    });
+    
+    
+    //Instantiation takes place after Vue.component definition. 
+    new Vue({
+      el: '#app',
+      data: {
+        visible: false
+      }
+    });
+    
+  </script>
+  </body>
+</html>
