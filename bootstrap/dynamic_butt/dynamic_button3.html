@@ -1,0 +1,169 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+ 
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+ 
+<meta name="viewport" content="width = device-width, initial-scale = 1">
+
+<title>Bootstrap Tutorial</title>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/my.css"> 
+</head>
+
+<body>
+<!--Need to create a button which will trigger AJAX function call to mock up -->
+<!--a backend call which queries for recommendation of a client.             -->
+
+<div class="container">
+
+    <div id="productGroupDiv"></div>
+    <div id="MDescDiv"></div>
+    <div id="ProductItemsDiv"></div>
+
+</div>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function()
+    {
+
+        //This data needs to be replaced with JSON.
+        var PGS = ["PG1", "PG2", "PG3"]; 
+
+        //This is 2D array.  Each index reprsent MDesc for a PG.
+        var MDesc = [ 
+                      ["PG1-M1", "PG1-M2", "PG2-M3"],
+                      ["PG2-M1", "PG2-M2", "PG2-M3", "PG2-M4"],
+                      ["PG3-M1", "PG3-M2"]
+                    ];
+        //3D array
+        //Dimension will be numOFPG x numDesc.
+        //IN this case, outer size would be 3.
+        //              inner size would be
+        //                         3 , 4 , 2 respectively.
+        //
+        var ProdItems = 
+                    [ 
+                        [
+                            ["PG1-M1-item1", "PG1-M1-item2", "PG1-M1-item3"],
+                            ["PG1-M2-item1", "PG1-M2-item2"],
+                            ["PG1-M3-item1", "PG1-M3-item2", "PG1-M3-item3"],
+                        ],
+                        [
+                            ["PG2-M1-item1", "PG2-M1-item2", "PG2-M1-item3"],
+                            ["PG2-M2-item1", "PG2-M2-item2"],
+                            ["PG2-M3-item1", "PG3-M3-item2", "PG2-M3-item3"],
+                            ["PG2-M4-item1", "PG2-M4-item2"]
+                        ],
+                        [
+                            ["PG3-M1-item1", "PG3-M1-item2", "PG3-M1-item3"],
+                            ["PG3-M2-item1", "PG3-M2-item2"]
+                        ]
+                    ];
+    
+        //Dynamically populate buttons of unknown size.
+        for(i=0;i<PGS.length;i++){
+                
+                //The button labels name will hae convention of 'Button0' + 'Button1' + ...
+                var button = $("<input>").attr("type", "button").attr("class", "btn btn-default").attr("id", "pgButton"+i).val(PGS[i]);
+                $('#productGroupDiv').append(button);
+                $('#productGroupDiv').append(" ");
+                
+        }
+        
+        //Add eventhandler dynamcally since we don't know
+        //how many PG buttons will be present.
+        for(i=0; i<PGS.length; i++)
+        {
+            //First identify the button label name and attache
+            //event handler to a particular button.
+            var idName = "pgButton"+i
+            //Closure function of an event handler when a PG button has clicked.
+            document.getElementById(idName).addEventListener("click", function()
+            {
+                //var PGS;
+                //var MDesc;
+                
+                //This was able get the element ID of the button clicked.
+                //But, where is event parameter coming from. (event must be a global variable.)
+                PG_EventID = event.target.id;
+                //alert(event.target.id);
+            
+                //Get button ID
+                PGbuttonID = PG_EventID.split(/(\d+)/)[1]
+                MDescLength = MDesc[PGbuttonID].length;
+                
+                //alert('buttonID =' + PGbuttonID);
+                //alert('MDescLength=' + MDescLength);
+                
+                //Remove all elements in MDescs div first.
+                const myNode = document.getElementById("MDescDiv");
+                while (myNode.firstChild) {
+                    myNode.removeChild(myNode.firstChild);
+                }
+                //Remove all elements in MDescs div first.
+                const myNode2 = document.getElementById("ProductItemsDiv");
+                while (myNode2.firstChild) {
+                    myNode2.removeChild(myNode2.firstChild);
+                }
+
+                //Now dynamically display MDesc buttons.
+                for(j=0;j<MDescLength;j++){
+                    //The label name must have this convention: MDesc0, MDesc1, MDesc2, ...
+                     var button = $("<input>").attr("type", "button").attr("class", "btn btn-default").attr("id", "MDesc"+j).val(MDesc[PGbuttonID][j]);
+                     $('#MDescDiv').append(button);
+                     $('#MDescDiv').append(" ");
+                }
+                
+                //Now dynamically attach event handler per MDesc button.
+                for(k=0; k<MDescLength; k++)
+                {
+                    //First identify the button label name and attache
+                    //event handler to a particular button.
+                    var MDescIDName = "MDesc"+k
+                    //alert('trying to set')
+                    //
+                    //Closure function of an event handler when a PG button has clicked.
+                    document.getElementById(MDescIDName).addEventListener("click", function()
+                    {
+                        MDescEventID = event.target.id;
+                        //alert(event.target.id);
+                        MDescbuttonID = MDescEventID.split(/(\d+)/)[1]
+                        ProductItemLength = ProdItems[PGbuttonID][MDescbuttonID].length;
+                        //alert('MDescbuttonID =' + MDescbuttonID);
+                        //alert('ProductItemLength=' + ProductItemLength);
+             
+                        //Remove all elements in MDescs div first.
+                        const myNode1 = document.getElementById("ProductItemsDiv");
+                        while (myNode1.firstChild) {
+                            myNode1.removeChild(myNode1.firstChild);
+                        }
+
+                        for(j=0;j<ProductItemLength;j++){
+                            //The label name must have this convention: MDesc0, MDesc1, MDesc2, ...
+                            var button = $("<input>").attr("type", "button").attr("class", "btn btn-default").attr("id", "prodItem"+j).val(ProdItems[PGbuttonID][MDescbuttonID][j]);
+                            $('#ProductItemsDiv').append(button);
+                            $('#ProductItemsDiv').append(" ");
+                }
+            
+                    });
+                }
+        
+            });    
+        }
+        
+    });
+
+</script>
+
+</body>
+</html> 

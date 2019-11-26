@@ -1,0 +1,103 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+ 
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+ 
+<meta name="viewport" content="width = device-width, initial-scale = 1">
+
+<title>Bootstrap Tutorial</title>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/my.css"> 
+</head>
+
+<body>
+  
+<div class="container">
+
+    <div id="productGroupDiv"></div>
+    <div id="MDescDiv"></div>
+
+</div>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+
+        var PGS = ["PG1", "PG2", "PG3"]; 
+        //var MDesc = ["45deg-M1", "45deg-M2", "45deg-M3"]; 
+        var MDesc = [ ["PG1-M1", "PG1-M2", "PG2-M3"],
+                      ["PG2-M1", "PG2-M2", "PG2-M3", "PG2-M4"],
+                      ["PG3-M1", "PG3-M2"],
+                    ];
+        //for(i=0;i<8;i++){
+        for(i=0;i<PGS.length;i++){
+                var button = $("<input>").attr("type", "button").attr("class", "btn btn-default").attr("id", "pgButton"+i).val(PGS[i]);
+                $('#productGroupDiv').append(button);
+                $('#productGroupDiv').append(" ");
+                
+        }
+        
+        //for(i=0; i<8; i++)
+        //Add eventhandler dynamcally since we don't know
+        //how many PG buttons will be present.
+        for(i=0; i<PGS.length; i++)
+        {
+            var idName = "pgButton"+i
+            console.log(idName);
+            document.getElementById(idName).addEventListener("click", function(){
+
+                //This was able get the element ID of the button clicked.
+                //But, where is event parameter coming from.
+                PG = event.target.id;
+                alert(event.target.id);
+                //Get button ID
+                buttonID = PG.split(/(\d+)/)[1]
+                MDescLength = MDesc[buttonID].length;
+                
+                //Remove all elements in MDescs div first.
+                const myNode = document.getElementById("MDescDiv");
+                while (myNode.firstChild) {
+                    myNode.removeChild(myNode.firstChild);
+                }
+
+                //for(j=0;j<3;j++){
+                for(j=0;j<MDescLength;j++){
+                    //MDescLength
+                    //alert('trying')
+                     var button = $("<input>").attr("type", "button").attr("class", "btn btn-default").attr("id", "MDesc"+j).val(MDesc[buttonID][j]);
+                     $('#MDescDiv').append(button);
+                     $('#MDescDiv').append(" ");
+                }
+            });
+        }
+        
+        //Below didnt work painstakingly.
+        //Cannot understand why?
+         //('.buttonWithQNo').popover({trigger: 'hover'});
+        //for(i=0;i<8;i++){
+            //idName = "pgButton"+i
+            //document.getElementById(idName).addEventListener("click", function(){
+                     //document.getElementById("pgButton"+i).innerHTML = "Hello World";
+                     //label = document.getElementById(idName).innerHTML;
+              //       alert(idName);
+                //     var x = document.getElementById(idName).value;
+                     //alert('hello xyz')
+                  //   alert(x);
+            //});
+        //}
+
+    });
+
+</script>
+
+</body>
+</html> 

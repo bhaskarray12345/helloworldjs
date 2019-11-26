@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+ 
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+ 
+<meta name="viewport" content="width = device-width, initial-scale = 1">
+
+<title>Bootstrap Tutorial</title>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/my.css"> 
+</head>
+
+<body>
+  
+<div class="container">
+    <div class="btn-group btn-group-lg" role="group" aria-label="...">
+        <button type="button" class="btn btn-default">Small</button>
+        <button type="button" class="btn btn-default">Medium</button>
+        <button type="button" class="btn btn-default">dLarge</button>
+    </div>
+
+    <div id="productGroupDiv"></div>
+
+</div>
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+
+        var PGS = ["45deg", "90deg", "30deg", "10deg", "20deg", "25deg", "35deg","110deg"]; 
+
+        for(i=0;i<8;i++){
+                var button = $("<input>").attr("type", "button").attr("class", "btn btn-default").attr("id", "pgButton"+i).val(PGS[i]);
+                $('#productGroupDiv').append(button);
+                $('#productGroupDiv').append(" ");
+                
+        }
+        document.getElementById("pgButton0").addEventListener("click", function(){
+                     var x = document.getElementById('pgButton0').value;
+                     alert(x);
+
+        });
+        document.getElementById("pgButton1").addEventListener("click", function(){
+                     var x = document.getElementById('pgButton1').value;
+                     alert(x);
+
+        });
+
+         //('.buttonWithQNo').popover({trigger: 'hover'});
+        //for(i=0;i<8;i++){
+            //idName = "pgButton"+i
+            //document.getElementById(idName).addEventListener("click", function(){
+                     //document.getElementById("pgButton"+i).innerHTML = "Hello World";
+                     //label = document.getElementById(idName).innerHTML;
+              //       alert(idName);
+                //     var x = document.getElementById(idName).value;
+                     //alert('hello xyz')
+                  //   alert(x);
+            //});
+        //}
+
+    });
+
+</script>
+
+</body>
+</html> 

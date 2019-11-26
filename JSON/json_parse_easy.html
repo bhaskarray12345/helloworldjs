@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Access a JSON object using dot notation:</p>
+
+<p id="demo"></p>
+
+<script>
+var myObj, x;
+myObj = {"name":"John", "age":30, "car":null};
+x = myObj.name;
+document.getElementById("demo").innerHTML = x;
+console.log(x)
+var PGS = ["PG1", "PG2", "PG3"]; 
+
+var MDesc = [ 
+                      ["PG1-M1", "PG1-M2", "PG2-M3"],
+                      ["PG2-M1", "PG2-M2", "PG2-M3", "PG2-M4"],
+                      ["PG3-M1", "PG3-M2"]
+            ];
+
+//myObj = {"PG1": 
+var myObj = 
+[
+    {
+        "PG_Name": "PG1",
+        "MDesc": [
+            {
+                "MDesc_name": "PG1-M1",
+                "settingvalue": "value1"
+            },
+            {
+                "MDesc_name": "PG1-M2",
+                "settingvalue": "value2"
+            },
+            {
+                "MDesc_name": "PG1-M3",
+                "settingvalue": "value2"
+            }
+        ]
+    },
+    {
+        "PG_Name": "PG2",
+        "MDesc": [
+            {
+                "MDesc_name": "PG2-M1",
+                "settingvalue": "value3"
+            },
+            {
+                "MDesc_name": "PG2-M2",
+                "settingvalue": "value4"
+            },
+            {
+                "MDesc_name": "PG2-M3",
+                "settingvalue": "value4"
+            },
+            {
+                "MDesc_name": "PG2-M4",
+                "settingvalue": "value4"
+            },
+            
+        ]
+    }
+];
+</script>
+
+</body>
+</html>
