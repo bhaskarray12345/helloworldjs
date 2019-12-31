@@ -1,0 +1,120 @@
+<html lang="en">
+<head>
+</head>
+<body>
+<table id="mytable">
+<thead>
+  <tr>
+     <th id="sl">S.L.</th>
+     <th id="nm">name</th>
+     <th id="lt">login time</th>
+     
+  </tr>
+</thead>
+<tbody>
+  <tr>
+     <td>1</td>
+     <td>Ronaldo</td>
+     <td>Jul 1, 2019</td>
+  </tr>
+  <tr>
+     <td>2</td>
+     <td>Messi</td>
+     <td>Jan 2, 2019</td>
+  </tr>
+  <tr>
+     <td>3</td>
+     <td>Ribery</td>
+     <td>Feb 2, 2019</td>
+  </tr>
+  <tr>
+     <td>4</td>
+     <td>Bale</td>
+     <td>Mar 2, 2019</td>
+  </tr>
+</tbody>
+ </table>
+ <!--
+ <script src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous">
+  </script>
+  -->
+ <!--
+  <script src="https://code.jquery.com/jquery-3.3.1.js">
+  </script>
+ -->
+ <!--
+ <script src="https://code.jquery.com/jquery-3.4.1.js">
+  </script>
+  -->
+   <script src="https://code.jquery.com/jquery-3.4.1.min.js">
+  </script>
+
+<script>
+//  sortTable(f,n)
+//  f : 1 ascending order, -1 descending order
+//  n : n-th child(<td>) of <tr>
+/*global $*/
+
+function sortTable(f,n){
+    
+    alert('sortTable');
+    
+    var rows = $('#mytable tbody  tr').get();
+
+    rows.sort(function(a, b) {
+
+        var A = getVal(a);
+        var B = getVal(b);
+
+        if(A < B) {
+            return -1*f;
+        }
+        if(A > B) {
+            return 1*f;
+        }
+        return 0;
+    });
+
+    function getVal(elm){
+        var v = $(elm).children('td').eq(n).text().toUpperCase();
+        if($.isNumeric(v)){
+            v = parseInt(v,10);
+        }
+        return v;
+    }
+
+    $.each(rows, function(index, row) {
+        $('#mytable').children('tbody').append(row);
+    });
+}
+var f_sl = 1; // flag to toggle the sorting order
+var f_nm = 1; // flag to toggle the sorting order
+var f_lt = 1;
+
+$("#sl").click(function(){
+    alert('damn hard to debug JS');
+    f_sl *= -1; // toggle the sorting order
+    var n = $(this).prevAll().length;
+    sortTable(f_sl,n);
+});
+$("#nm").click(function(){
+    alert('damn hard to debug JS');
+    f_nm *= -1; // toggle the sorting order
+    var n = $(this).prevAll().length;
+    alert(n);
+    sortTable(f_nm,n);
+});
+
+$("#lt").click(function(){
+    alert('damn hard to debug JS');
+    f_lt *= -1; // toggle the sorting order
+    var n = $(this).prevAll().length;
+    alert(n);
+    sortTable(f_lt,n);
+});
+
+</script>
+</body>
+</html>
