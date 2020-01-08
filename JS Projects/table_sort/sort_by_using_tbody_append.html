@@ -1,0 +1,72 @@
+<html lang="en">
+<head>
+</head>
+<body>
+
+<table id="results" width="360" border="1">
+    <thead>
+      <tr>
+        <th scope="col" width="120">Date Created</th>
+        <th scope="col" width="120">Name</th>
+        <th scope="col" width="120">Tests</th>
+      </tr>
+    </thead>
+    <tbody>
+       <tr>
+        <td>04/04/2015</td>
+        <td>Test Name 2</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>09/08/2017</td>
+        <td>Test Name 5</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>07/08/2015</td>
+        <td>Test Name 4</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>05/04/2015</td>
+        <td>Test Name 3</td>
+        <td>4</td>
+      </tr>
+      <tr>
+        <td>12/08/2017</td>
+        <td>Test Name 6</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>21/03/2014</td>
+        <td>Test Name 1</td>
+        <td>6</td>
+      </tr>
+    </tbody>
+</table>
+<button onclick='sort_using_tbody()'>Sort by date</button>
+
+
+<script>
+function convertDate(d) {
+  var p = d.split("/");
+  return +(p[2]+p[1]+p[0]);
+}
+
+function sort_using_tbody() {
+  var tbody = document.querySelector("#results tbody");
+  // get trs as array for ease of use
+  var rows = [].slice.call(tbody.querySelectorAll("tr"));
+  
+  rows.sort(function(a,b) {
+    return convertDate(a.cells[0].innerHTML) - convertDate(b.cells[0].innerHTML);
+  });
+  
+  rows.forEach(function(v) {
+    tbody.appendChild(v); // note that .appendChild() *moves* elements
+  });
+}
+  
+</script>
+</body>
+</html>
